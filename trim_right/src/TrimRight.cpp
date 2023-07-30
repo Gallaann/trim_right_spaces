@@ -13,17 +13,15 @@ void TrimRight(char* s)
     if (!s)
     {
         throw std::invalid_argument("string is null");
-        return;
     }
 
-    auto len = strlen(s);
-    auto original_len = len;
+    auto length = strlen(s);
 
-    while (len > 0 && isspace(s[len - 1]))
+    while (length > 0 && isspace(s[length - 1]))
     {
-        --len;
+        --length;
     }
 
-    s[len] = '\0';
+    s[length] = '\0';
 }
 }  // namespace function
