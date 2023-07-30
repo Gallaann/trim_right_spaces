@@ -67,7 +67,7 @@ jobs:
           name: Results of build with clang-tidy, cpplint, cppcheck
           path: ${{ github.workflow }}/build_output.txt
 
-  tests:
+  test:
     runs-on: ubuntu-latest
     permissions: write-all
     needs: [ build-with-linters ]
@@ -84,13 +84,13 @@ jobs:
       - name: Build
         run: cmake --build ${{ github.workflow }}/build
 
-      - name: Run tests
-        id: run-tests
+      - name: Run test
+        id: run-test
         run: |
-          ${{ github.workflow }}/build/tests/run_tests.sh 2>&1 | tee ${{ github.workflow }}/tests_output.txt
+          ${{ github.workflow }}/build/test/run_test.sh 2>&1 | tee ${{ github.workflow }}/test_output.txt
           RESULT_CODE=${PIPESTATUS[0]}
-          echo "TESTS_OUTPUT<<EOF" >> $GITHUB_OUTPUT
-          echo "$(cat ${{ github.workflow }}/tests_output.txt)" >> $GITHUB_OUTPUT
+          echo "test_OUTPUT<<EOF" >> $GITHUB_OUTPUT
+          echo "$(cat ${{ github.workflow }}/test_output.txt)" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           exit $RESULT_CODE
 
@@ -98,13 +98,13 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            ## Tests Results
+            ## test Results
             ```
-            echo ${{ steps.run-tests.outputs.TESTS_OUTPUT }}
+            echo ${{ steps.run-test.outputs.test_OUTPUT }}
             ```
 
       - name: Save build results to artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Tests Results
-          path: ${{ github.workflow }}/tests_output.txt
+          name: test Results
+          path: ${{ github.workflow }}/test_output.txt
