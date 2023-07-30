@@ -2,24 +2,24 @@ set(TESTS_BINARY_DIR ${CMAKE_BINARY_DIR}/test)
 file(MAKE_DIRECTORY ${TESTS_BINARY_DIR})
 
 # Create bash script to run test executables
-file(WRITE ${TESTS_BINARY_DIR}/run_tests.sh "#!/bin/bash\n")
+file(WRITE ${TESTS_BINARY_DIR}/run_test.sh "#!/bin/bash\n")
 
 function(add_test_and_update_script TEST_NAME TEST_EXECUTABLE_PATH)
-    file(APPEND ${TESTS_BINARY_DIR}/run_tests.sh "echo '' '---------------------------------------'")
-    file(APPEND ${TESTS_BINARY_DIR}/run_tests.sh "echo 'Executing test: ''${TEST_NAME}'' ''")
-    file(APPEND ${TESTS_BINARY_DIR}/run_tests.sh "echo '---------------------------------------' ''")
-    file(APPEND ${TESTS_BINARY_DIR}/run_tests.sh "${TEST_EXECUTABLE_PATH}\n")
+    file(APPEND ${TESTS_BINARY_DIR}/run_test.sh "echo '' '---------------------------------------'")
+    file(APPEND ${TESTS_BINARY_DIR}/run_test.sh "echo 'Executing test: ''${TEST_NAME}'' ''")
+    file(APPEND ${TESTS_BINARY_DIR}/run_test.sh "echo '---------------------------------------' ''")
+    file(APPEND ${TESTS_BINARY_DIR}/run_test.sh "${TEST_EXECUTABLE_PATH}\n")
 endfunction()
 
-# Set execute permissions for run_tests.sh
+# Set execute permissions for run_test.sh
 file(
-        INSTALL ${TESTS_BINARY_DIR}/run_tests.sh
+        INSTALL ${TESTS_BINARY_DIR}/run_test.sh
         DESTINATION ${TESTS_BINARY_DIR}
         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
 )
 
 execute_process(
-        COMMAND chmod +x ${TESTS_BINARY_DIR}/run_tests.sh
+        COMMAND chmod +x ${TESTS_BINARY_DIR}/run_test.sh
 )
 
 set(TEST_EXECUTABLE TrimRightTest)
