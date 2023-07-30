@@ -89,7 +89,7 @@ jobs:
         run: |
           ${{ github.workflow }}/build/test/run_test.sh 2>&1 | tee ${{ github.workflow }}/test_output.txt
           RESULT_CODE=${PIPESTATUS[0]}
-          echo "test_OUTPUT<<EOF" >> $GITHUB_OUTPUT
+          echo "TEST_OUTPUT<<EOF" >> $GITHUB_OUTPUT
           echo "$(cat ${{ github.workflow }}/test_output.txt)" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           exit $RESULT_CODE
@@ -100,7 +100,7 @@ jobs:
           message: |
             ## test Results
             ```
-            echo ${{ steps.run-test.outputs.test_OUTPUT }}
+            echo ${{ steps.run-test.outputs.TEST_OUTPUT }}
             ```
 
       - name: Save build results to artifact
