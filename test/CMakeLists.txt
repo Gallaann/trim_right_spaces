@@ -1,21 +1,20 @@
-set(TESTS_BINARY_DIR ${CMAKE_BINARY_DIR}/test)
-file(MAKE_DIRECTORY ${TESTS_BINARY_DIR})
+set(TEST_BINARY_DIR ${CMAKE_BINARY_DIR}/test)
+file(MAKE_DIRECTORY ${TEST_BINARY_DIR})
 
 # Create bash script to run test executables
-file(WRITE ${TESTS_BINARY_DIR}/run_tests.sh "#!/bin/bash\n")
+file(WRITE ${TEST_BINARY_DIR}/run_test.sh "#!/bin/bash\n")
 
-# example of TEST_EXECUTABLE_PATH: "${CMAKE_BINARY_DIR}/tests/back/services/test_service"
 function(add_test_and_update_script TEST_NAME TEST_EXECUTABLE_PATH)
-    file(APPEND ${TESTS_BINARY_DIR}/run_tests.sh "echo '' '---------------------------------------'")
-    file(APPEND ${TESTS_BINARY_DIR}/run_tests.sh "echo 'Executing test: ''${TEST_NAME}'' ''")
-    file(APPEND ${TESTS_BINARY_DIR}/run_tests.sh "echo '---------------------------------------' ''")
-    file(APPEND ${TESTS_BINARY_DIR}/run_tests.sh "${TEST_EXECUTABLE_PATH}\n")
+    file(APPEND ${TEST_BINARY_DIR}/run_test.sh "echo '' '---------------------------------------'")
+    file(APPEND ${TEST_BINARY_DIR}/run_test.sh "echo 'Executing test: ''${TEST_NAME}'' ''")
+    file(APPEND ${TEST_BINARY_DIR}/run_test.sh "echo '---------------------------------------' ''")
+    file(APPEND ${TEST_BINARY_DIR}/run_test.sh "${TEST_EXECUTABLE_PATH}\n")
 endfunction()
 
-# Set execute permissions for run_tests.sh
+# Set execute permissions for run_test.sh
 file(
-        INSTALL ${TESTS_BINARY_DIR}/run_tests.sh
-        DESTINATION ${TESTS_BINARY_DIR}
+        INSTALL ${TEST_BINARY_DIR}/run_test.sh
+        DESTINATION ${TEST_BINARY_DIR}
         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
 )
 
@@ -43,4 +42,4 @@ set(PRIVATE_LINK_LIBRARIES
 target_link_libraries(${TEST_EXECUTABLE} PRIVATE ${PRIVATE_LINK_LIBRARIES})
 
 include(GoogleTest)
-gtest_discover_tests(${TEST_EXECUTABLE})
+gtest_discover_test(${TEST_EXECUTABLE})
