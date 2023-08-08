@@ -23,6 +23,7 @@ execute_process(
 )
 
 set(TEST_EXECUTABLE TrimRightTest)
+set(TEST_EXECUTABLE_PATH ${TESTS_BINARY_DIR}/TrimRightTest)
 
 add_executable(${TEST_EXECUTABLE} "")
 
@@ -48,4 +49,4 @@ target_link_libraries(${TEST_EXECUTABLE} PRIVATE ${PRIVATE_LINK_LIBRARIES})
 include(GoogleTest)
 gtest_discover_tests(${TEST_EXECUTABLE})
 
-add_test_and_update_script (TEST_EXECUTABLE ${TESTS_BINARY_DIR}/TEST_EXECUTABLE)
+add_test_and_update_script (${TEST_EXECUTABLE} ${TEST_EXECUTABLE_PATH})
