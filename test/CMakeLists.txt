@@ -48,4 +48,4 @@ target_link_libraries(${TEST_EXECUTABLE} PRIVATE ${PRIVATE_LINK_LIBRARIES})
 include(GoogleTest)
 gtest_discover_tests(${TEST_EXECUTABLE})
 
-add_test_and_update_script (trim_right_test ${TESTS_BINARY_DIR})
+add_test_and_update_script (TEST_EXECUTABLE ${TESTS_BINARY_DIR})
