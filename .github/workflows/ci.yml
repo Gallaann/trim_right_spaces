@@ -56,6 +56,7 @@ jobs:
       - name: Save results to PR comment
         uses: mshick/add-pr-comment@v2
         with:
+          message-id: linters
           message: |
             ## Results of build with clang-tidy, cpplint, cppcheck
             ```
@@ -97,11 +98,14 @@ jobs:
       - name: Save results to PR comment
         uses: mshick/add-pr-comment@v2
         with:
+          message-id: test
           message: |
             ## test Results
             ```
             echo ${{ steps.run-test.outputs.TEST_OUTPUT }}
             ```
+          message-failure: |
+            ## Uh oh!
 
       - name: Save build results to artifact
         uses: actions/upload-artifact@v3
