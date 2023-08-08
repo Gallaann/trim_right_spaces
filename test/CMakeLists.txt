@@ -6,7 +6,7 @@ file(WRITE ${TESTS_BINARY_DIR}/run_test.sh "#!/bin/bash\n")
 
 function(add_test_and_update_script TEST_NAME TEST_EXECUTABLE_PATH)
 #    file(APPEND ${TESTS_BINARY_DIR}/run_test.sh "echo '' '---------------------------------------'")
-    file(APPEND ${TESTS_BINARY_DIR}/run_test.sh "echo 'Executing test: ''${TEST_NAME}'' '")
+    file(APPEND ${TESTS_BINARY_DIR}/run_test.sh "echo 'Executing test: ''${TEST_NAME}'' '\n")
 #    file(APPEND ${TESTS_BINARY_DIR}/run_test.sh "echo '---------------------------------------' ''")
     file(APPEND ${TESTS_BINARY_DIR}/run_test.sh "${TEST_EXECUTABLE_PATH}\n")
 endfunction()
